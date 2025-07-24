@@ -4,13 +4,13 @@ This repository contains a **full‑stack flight data visualization application*
 
 ### Motivation
 
-Flight operations and remote sensing systems produce huge streams of telemetry.  Making sense of this information requires a robust ingestion pipeline and a clear user interface.  This project is inspired by the architecture used in similar applications: a React frontend communicates with a Python API over REST; the API persists data to a database; and a background job ingests raw telemetry into structured records.  Official FastAPI documentation highlights how the framework delivers high performance and ease of use for building APIs by leveraging Python type hints and automatic OpenAPI generation【659874306774395†L315-L328】.  Likewise, the React documentation emphasises its component‑based approach, letting developers build user interfaces by composing small pieces into complete pages【746734238372704†L28-L66】.
+Flight operations and remote sensing systems produce huge streams of telemetry.  Making sense of this information requires a robust ingestion pipeline and a clear user interface.  This project is inspired by the architecture used in similar applications: a React frontend communicates with a Python API over REST; the API persists data to a database; and a background job ingests raw telemetry into structured records.  Official FastAPI documentation highlights how the framework delivers high performance and ease of use for building APIs by leveraging Python type hints and automatic OpenAPI generation.  Likewise, the React documentation emphasises its component‑based approach, letting developers build user interfaces by composing small pieces into complete pages.
 
 ### Features
 
 - **Data ingestion** – A background script (`ingest.py`) reads comma‑separated satellite telemetry and writes structured `Flight` and `Position` rows into a SQLite database via SQLAlchemy.
-- **Typed API** – The FastAPI service exposes CRUD endpoints to list flights, fetch flight details and stream the latest positions.  FastAPI generates interactive documentation automatically based on the Pydantic models【659874306774395†L315-L328】.
-- **React dashboard** – The frontend is bootstrapped with Vite and Tailwind CSS.  Components include a flight table, a detail pane and a map/graph view.  React’s declarative component model makes it straightforward to build reusable UI building blocks【746734238372704†L28-L72】.
+- **Typed API** – The FastAPI service exposes CRUD endpoints to list flights, fetch flight details and stream the latest positions.  FastAPI generates interactive documentation automatically based on the Pydantic models.
+- **React dashboard** – The frontend is bootstrapped with Vite and Tailwind CSS.  Components include a flight table, a detail pane and a map/graph view.  React’s declarative component model makes it straightforward to build reusable UI building blocks.
 - **Responsive UI** – The dashboard uses responsive layouts to work well on desktop and mobile.  Charts are rendered with Chart.js; maps use Leaflet via the `react‑leaflet` library.
 - **Containerised** – A `docker-compose.yml` orchestrates the backend, frontend and database services for local development.  Each service runs in its own container.
 
@@ -91,10 +91,10 @@ flight_data_app/
 ### Extending the project
 
 - **Data ingestion** – Replace `sample_satellite_data.csv` with real telemetry logs.  Extend `ingest.py` to parse additional fields, handle different file formats (e.g. binary packets) or ingest from an API.
-- **Authentication & caching** – Add JWT authentication and caching with Redis following the architecture described in the React + Flask recipe manager article【363099850981002†L147-L176】.  Use `fastapi-users` or `fastapi-auth` for user management.
+- **Authentication & caching** – Add JWT authentication and caching with Redis following the architecture described in the React + Flask recipe manager article.  Use `fastapi-users` or `fastapi-auth` for user management.
 - **Persistent storage** – Swap SQLite for PostgreSQL using SQLAlchemy and Dockerised Postgres.  Add Alembic migrations to manage schema changes.
-- **Real‑time updates** – For near real‑time tracking, serve a WebSocket endpoint via FastAPI (Uvicorn).  Use `socket.io` or `stomp.js` in React to subscribe to updates.  Alternatively, publish telemetry to an MQTT broker as shown in the flight dashboard example【284508587884411†L36-L86】 and subscribe from the frontend.
-- **Deploy to cloud** – Containerise the services and deploy to a Kubernetes cluster, or serverless functions, following the production architecture patterns described in the React‑Flask architecture article【363099850981002†L147-L176】.
+- **Real‑time updates** – For near real‑time tracking, serve a WebSocket endpoint via FastAPI (Uvicorn).  Use `socket.io` or `stomp.js` in React to subscribe to updates.  Alternatively, publish telemetry to an MQTT broker as shown in the flight dashboard example and subscribe from the frontend.
+- **Deploy to cloud** – Containerise the services and deploy to a Kubernetes cluster, or serverless functions, following the production architecture patterns described in the React‑Flask architecture article.
 
 ### License
 
